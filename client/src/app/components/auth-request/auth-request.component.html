@@ -1,0 +1,32 @@
+<div class="request-card-container" *ngIf="polymeshService.enablePopUp.getAuthRequest">
+    <div class="account-card" *ngFor="let request of polymeshService.accountAuthRequest">
+        <div class="cardRow">
+            <p>Auth ID</p>
+            <h4>{{request.authId}}</h4>
+        </div>
+        <div class="cardRow">
+            <p>Req Type</p>
+            <h4>{{request.data.type}}</h4>
+        </div>
+        <div class="cardRow">
+            <p>Asset Name</p>
+            <h4>{{request.data.value}}</h4>
+        </div>
+        <div class="cardRow">
+            <p>Sender DID</p>
+            <h4>{{request.issuer.did.substr(0,5)+'....'+request.issuer.did.substr(-4)}}</h4>
+        </div>
+        <div class="cardRow">
+            <p>Sender uuID</p>
+            <h4>{{request.uuid.substr(0,5)+'....'+request.uuid.substr(-4)}}</h4>
+        </div>
+        <div class="cardRow">
+            <p>Expiry</p>
+            <h4>{{request.expiry==null?'No expiry':request.expiry}}</h4>
+        </div>
+        <div class="cardRow">
+            <button class="reject-btn" (click)="rejectAuthRequest(request)">Reject</button>
+            <button class="accept-btn" (click)="acceptAuthRequest(request)">Accept</button>
+        </div>
+    </div>
+</div>

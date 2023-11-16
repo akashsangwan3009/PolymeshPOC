@@ -1,0 +1,50 @@
+<div *ngIf="polymeshService.enablePopUp.transferOwner">
+    <form #transferOwner="ngForm" (ngSubmit)="transferOnwership(transferOwner.value)">
+        <input placeholder="Enter Asset ticker name..." ngModel name="tickerName"/><br><br>
+        <input placeholder="Enter Account public key..." ngModel name="pubKey"/><br><br>
+        <button class="btn">Transfer OwnerShip</button>
+    </form>
+</div>
+
+<div *ngIf="polymeshService.enablePopUp.addSecondaryAccount">
+    <form #secondaryAccount="ngForm" (ngSubmit)="addSecondaryAccount(secondaryAccount.value)">
+        <input placeholder="Enter Account public key..." ngModel name="pubKey"/><br><br>
+        <button class="btn">Add Secondary Account</button>
+    </form>
+</div>
+
+<div *ngIf="polymeshService.enablePopUp.assetCompliance">
+    <form #assetCompliance="ngForm" (ngSubmit)="setAssetCompliance(assetCompliance.value)">
+        <input placeholder="Enter ticker name..." ngModel name="tickername"/><br><br>
+        <button class="btn">Set Asset Compliance</button>
+    </form>
+</div>
+
+<div *ngIf="polymeshService.enablePopUp.assetAgent">
+    <form #assetAgent="ngForm" (ngSubmit)="setAssetAgent(assetAgent.value)">
+        <input placeholder="Enter ticker name ..." ngModel name="tickername"/><br><br>
+        <input placeholder="Enter account address ..." ngModel name="accountAddress"/><br><br>
+        <button class="btn">Set Asset Agent</button>
+    </form>
+</div>
+
+
+<div *ngIf="polymeshService.enablePopUp.mintAsset">
+    <form #mintAsset="ngForm" (ngSubmit)="callMintAsset(mintAsset.value)">
+        <input placeholder="Enter Asset ticker name ..." ngModel name="tickername"/><br><br>
+        <input placeholder="Enter amount ..." ngModel name="amount"/><br><br>
+        <button class="btn">Mint Asset</button>
+    </form>
+</div>
+
+<div *ngIf="polymeshService.enablePopUp.assetDistribution">
+    <form #assetDistribution="ngForm" (ngSubmit)="callAssetDistribution(assetDistribution.value)">
+        <input placeholder="Enter token ticker ..." ngModel name="tickerName"/><br><br>
+        <input placeholder="Enter user account ..." ngModel name="userDiD"/><br><br>
+        <input placeholder="Enter Portfolio Id ..." ngModel name="portfoliaId"/>
+        <p style="color: red;">If Portfolio Id is not mentioned, than asset will go into default portfolio of user Identity</p>
+        <input placeholder="Enter amount ..." ngModel name="amount"/><br><br>
+        <button class="btn">Distribute Asset</button>
+    </form>
+</div>
+

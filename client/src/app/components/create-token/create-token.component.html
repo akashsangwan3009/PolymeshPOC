@@ -1,0 +1,13 @@
+<div *ngIf="polymeshService.enablePopUp.createToken">
+   <form #createTokenForm="ngForm" (ngSubmit)="createAsset(createTokenForm.value)">
+     <input placeholder="Enter your token ticker" name="ticker" ngModel/>
+     <button type="button" class="btn ticker-check" (click)="alertIfTickerAvaiable(createTokenForm.value.ticker)">Check If ticker Available</button><br><br>
+     <input placeholder="Enter your token name" name="token" ngModel/><br><br>
+     <input placeholder="Enter your asset type" name="assetType" ngModel/><br><br>
+     <label for="divisible">Is Divisible ?</label>
+     <input type="checkbox" name="isDivisible" value="True" ngModel/>True
+     <input type="checkbox" name="isDivisible" value="False" ngModel />False
+     <br>
+     <button class="btn create-token" >Create Token</button>
+   </form>
+</div>

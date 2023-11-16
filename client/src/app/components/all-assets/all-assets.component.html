@@ -1,0 +1,7 @@
+<div *ngIf="polymeshService.enablePopUp.getAllAssets">
+       <div class="account-card" *ngFor="let asset of polymeshService.accountAllAssets">
+            <p>{{asset.ticker}}</p>
+            <p>{{asset.name}}</p>
+       </div>
+</div>
+

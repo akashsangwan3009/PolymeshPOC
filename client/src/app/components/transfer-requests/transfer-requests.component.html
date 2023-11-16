@@ -1,0 +1,43 @@
+<div class="reqContainer" *ngIf="this.polymeshService.enablePopUp.getTransferRequest">
+    <div class="col-container">
+        <h4>Pending</h4>
+        <div>
+            <div *ngIf="this.polymeshService.tokenTransferPendingRequests.length==0">
+                <h3>No Requests Here !!</h3>
+            </div>
+            <div>
+                <ul *ngFor="let req of this.polymeshService.tokenTransferPendingRequests">
+                    <li>Instruction ID {{req.id}}</li>
+                    <button class="reject-btn" (click)="rejectPendingRequest(req)">Reject</button>
+                    <button class="accept-btn" (click)="affirmPendingRequest(req)">Accept</button>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-container">
+        <h4>Affirmed</h4>
+        <div>
+            <div *ngIf="this.polymeshService.tokenTransferAffirmedRequests.length==0">
+                <h3>No Data Available !!</h3>
+            </div>
+            <div>
+                <ul *ngFor="let req of this.polymeshService.tokenTransferAffirmedRequests">
+                    <li>Instruction ID : {{req.id}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-container">
+        <h4>Failed</h4>
+        <div>
+            <div *ngIf="this.polymeshService.tokenTransferFailedRequests.length==0">
+                <h3>No Data Available !!</h3>
+            </div>
+            <div>
+                <ul *ngFor="let req of this.polymeshService.tokenTransferFailedRequests">
+                    <li>Instruction ID : {{req.id}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>    

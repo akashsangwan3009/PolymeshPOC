@@ -1,0 +1,5 @@
+<div *ngIf="polymeshService.enablePopUp.getAsset">
+<input placeholder="Enter Asset Ticker" name="tickerName" [(ngModel)]="tickerName"/>
+<button class="btn get-asset" (click)="getAsset()">Get Asset Holders</button>
+<p>{{asset}}</p>
+</div>

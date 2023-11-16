@@ -1,0 +1,25 @@
+.reqContainer{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+}
+
+.col-container{
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid black;
+}
+
+.col-container li{
+    list-style: none;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 200;
+}
+
+.col-container:last-child{
+    border: 0;
+}

@@ -1,0 +1,23 @@
+<div class="porfolios-container" *ngIf="this.polymeshService.enablePopUp.porfolios">
+    <div class="porfolios-card-wrapper" *ngFor="let portfolio of this.polymeshService.allPortfolios">
+            <h3>Portfolio Name</h3>
+            <p>{{portfolio?.id? portfolio.name : 'Default' }}</p>    
+            <button class="btn" (click)="enablePortfolioDetailToggle(); getPortfolioDetail(portfolio); ">View Asset Details</button>
+    </div>
+</div>
+
+<div *ngIf="portfolioDetailsToggle && this.polymeshService.enablePopUp.porfolios">
+    <h1>{{portfolioName}} Portfolio Asset Details</h1>
+    <div class="portfolio-detail-container" *ngFor="let asset of portfolioAssets">
+        <div class="porfolio-detail-card-header">
+            <span>Asset name: </span>
+            <span>{{asset.asset.ticker}}</span>
+        </div>
+        <div class="porfolio-asset-container">
+            <h4>Asset Balances</h4>
+            <span>Total Asset : {{asset.total}} {{asset.asset.ticker}}</span>
+            <span>Free Asset : {{asset.free}} {{asset.asset.ticker}}</span>
+            <span>Locked Asset : {{asset.locked}} {{asset.asset.ticker}}</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+.request-card-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+
+.account-card{
+    width: 350px;
+    height:auto;
+    border: 5px solid black;
+}
+
+.cardRow{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cardRow>p{
+    width: 35%;
+    text-align: left;
+    padding-left: 8px;
+}
+
+.cardRow>h4{
+    width: 65%;
+    text-overflow: ellipsis;
+}
