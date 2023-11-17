@@ -59,6 +59,7 @@ export class AppComponent {
           assetDistribution:false,
           getTransferRequest:false,
           porfolios:false,
+          assetDetails:false,
         }
         break;
 
@@ -76,6 +77,7 @@ export class AppComponent {
           assetDistribution:false,
           getTransferRequest:false,
           porfolios:false,
+          assetDetails:false,
         };
         break;
 
@@ -93,6 +95,7 @@ export class AppComponent {
           assetDistribution:false,
           getTransferRequest:false,
           porfolios:false,
+          assetDetails:false,
         };
        
         if(this.polymeshService.enablePopUp.getAllAssets){
@@ -114,6 +117,7 @@ export class AppComponent {
           assetDistribution:false,
           getTransferRequest:false,
           porfolios:false,
+          assetDetails:false,
         };
     
         if(this.polymeshService.enablePopUp.getAuthRequest){
@@ -135,6 +139,7 @@ export class AppComponent {
           assetDistribution:false,
           getTransferRequest:false,
           porfolios:false,
+          assetDetails:false,
         };
         break;
 
@@ -152,6 +157,7 @@ export class AppComponent {
           assetDistribution:false,
           getTransferRequest:false,
           porfolios:false,
+          assetDetails:false,
         };
         break;
 
@@ -169,6 +175,7 @@ export class AppComponent {
           assetDistribution:false,
           getTransferRequest:false,
           porfolios:false,
+          assetDetails:false,
         };
         break; 
 
@@ -186,6 +193,7 @@ export class AppComponent {
           assetDistribution:false,
           getTransferRequest:false,
           porfolios:false,
+          assetDetails:false,
         };
         break; 
         
@@ -203,6 +211,7 @@ export class AppComponent {
           assetDistribution:false,
           getTransferRequest:false,
           porfolios:false,
+          assetDetails:false,
         };
         break;
 
@@ -220,6 +229,7 @@ export class AppComponent {
           assetDistribution:!this.polymeshService.enablePopUp.assetDistribution,
           getTransferRequest:false,
           porfolios:false,
+          assetDetails:false,
         };
         break;
         
@@ -237,6 +247,7 @@ export class AppComponent {
           assetDistribution:false,
           getTransferRequest:!this.polymeshService.enablePopUp.assetDistribution,
           porfolios:false,
+          assetDetails:false,
         };
 
         if(this.polymeshService.enablePopUp.getTransferRequest){
@@ -258,6 +269,7 @@ export class AppComponent {
           assetDistribution:false,
           getTransferRequest:false,
           porfolios:!this.polymeshService.enablePopUp.porfolios,
+          assetDetails:false,
         };
         if(this.polymeshService.enablePopUp.porfolios){
           await this.polymeshService.getAllPortfolios()
@@ -278,9 +290,10 @@ export class AppComponent {
         assetDistribution:false,
         getTransferRequest:false,
         porfolios:false,
+        assetDetails:false,
       };
 
-      this.polymeshService.getAssetAgents()
+      this.polymeshService.runTest()
       break; 
 
     }

@@ -63,7 +63,7 @@ export class TransferOwnerComponent {
     try {
       this.loadService.showLoading();
       await this.polymeshService.setAssetAgent(this.setAssetAgentData.tickername,this.setAssetAgentData.accountAddress )
-      alert('Compliance Sent Succesfully')
+      alert('Invite Sent Succesfully')
     } catch (error) {
       alert(error)
     }finally{

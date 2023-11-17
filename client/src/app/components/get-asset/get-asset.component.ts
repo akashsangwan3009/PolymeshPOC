@@ -19,10 +19,22 @@ export class GetAssetComponent {
       if(this.tickerName){
         try {
           const asset=await this.polymeshService.getAsset(this.tickerName);
-          const signingIdentity = await this.polymeshService.polyClient.getSigningIdentity();
-          console.log(await signingIdentity.assetPermissions.checkPermissions({
-            asset
-          }));    
+          await this.polymeshService.getAssetDetails(asset);
+          this.polymeshService.enablePopUp={
+          createToken:false,
+          getAsset:false,
+          getAllAssets:false,
+          getAuthRequest:false,
+          transferOwner:false,
+          addSecondaryAccount:false,
+          assetCompliance:false,
+          assetAgent:false,
+          mintAsset:false,
+          assetDistribution:false,
+          getTransferRequest:false,
+          porfolios:false,
+          assetDetails:true,
+        };   
         } catch (error) {
            alert(error);
         }  

@@ -1,0 +1,46 @@
+<div class="token-detail-container" *ngIf="polymeshService.enablePopUp.assetDetails">
+    <div class="token-detail-wrapper">
+        <div class="col-container">
+            <h3 class="table-header">Asset Ticker :</h3>
+            <h5>{{polymeshService.assetDetails.ticker}}</h5>
+        </div>
+        <div class="col-container">
+            <h3 class="table-header">Asset Type :</h3>
+            <h5>{{polymeshService.assetDetails.type}}</h5>
+        </div>
+        <div class="col-container">
+            <h3 class="table-header">Asset Full Agents :</h3>
+            <div *ngFor="let agent of polymeshService.assetDetails.fullAgents">
+                <p>{{agent.did.substr(0,5)+'....'+agent.did.substr(-4)}},</p>
+            </div>
+        </div>
+
+        <div class="col-container">
+            <h3 class="table-header">Asset Agents :</h3>
+            <div *ngFor="let agent of polymeshService.assetDetails.agents">
+                <p>{{agent.agent.did.substr(0,5)+'....'+agent.agent.did.substr(-4)}},</p>
+            </div>
+        </div>
+
+
+        <div class="col-container">
+            <h3 class="table-header">Asset IsDivisible :</h3>
+            <p>{{polymeshService.assetDetails.isDivisible}}</p>
+        </div>
+
+        <div class="col-container">
+            <h3 class="table-header">Asset Name:</h3>
+            <p>{{polymeshService.assetDetails.name}}</p>
+        </div>
+
+        <div class="col-container">
+            <h3 class="table-header">Asset Owner :</h3>
+            <p>{{polymeshService.assetDetails.ownerDid.substr(0,5)+'....'+polymeshService.assetDetails.ownerDid.substr(-4)}}</p>
+        </div>
+
+        <div class="col-container">
+            <h3 class="table-header">Asset Total Supply :</h3>
+            <p>{{polymeshService.assetDetails.totalSupply}}</p>
+        </div>
+    </div>  
+</div>

@@ -12,6 +12,7 @@ import { AuthRequestComponent } from './components/auth-request/auth-request.com
 import { TransferOwnerComponent } from './components/transfer-owner/transfer-owner.component';
 import { TransferRequestsComponent } from './components/transfer-requests/transfer-requests.component';
 import { AllPortfoliosComponent } from './components/all-portfolios/all-portfolios.component';
+import {TokenDetailsComponent} from "./components/token-details/token-details.component"
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AllPortfoliosComponent } from './components/all-portfolios/all-portfoli
     TransferOwnerComponent,
     TransferRequestsComponent,
     AllPortfoliosComponent,
+    TokenDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BigNumber, Polymesh } from '@polymeshassociation/polymesh-sdk';
 import { BrowserExtensionSigningManager } from '@polymeshassociation/browser-extension-signing-manager';
 import {LoadingService} from "./loading.service"
-import {SettlementTx,ExternalAgentsTx,AssetTx} from "@polymeshassociation/polymesh-sdk/types"
+import {TxGroup} from "@polymeshassociation/polymesh-sdk/types"
 
 
 @Injectable({
@@ -20,6 +20,15 @@ export class PolymeshService {
   tokenTransferFailedRequests:any=[];
   allPortfolios:any[]=[];
   singingIdentity:any;
+  assetDetails:any={ticker:"", 
+                    did:"",
+                    type:"",
+                    agents:[],
+                    fullAgents:[],
+                    isDivisible:"",
+                    name:"",
+                    ownerDid:"",
+                    totalSupply:"" };
 
   enablePopUp:{ createToken: boolean, 
                 getAsset: boolean, 
@@ -32,7 +41,8 @@ export class PolymeshService {
                 assetAgent:boolean,
                 mintAsset:boolean,
                 assetDistribution:boolean ,
-                porfolios:boolean
+                porfolios:boolean,
+                assetDetails:boolean,
               } = { 
                        createToken:false, 
                        getAsset:false, 
@@ -46,6 +56,7 @@ export class PolymeshService {
                        assetDistribution:false,  
                        getTransferRequest:false,
                        porfolios:false,
+                       assetDetails:false,
                       };
   accountAllAssets:any=[];
 
@@ -77,7 +88,8 @@ export class PolymeshService {
         // console.log('UserAccount', userAccount,  this.signingAddress);
         // console.log('user Request',  await userAccount.authorizations.getReceived());
         this.accountAuthRequest= await this.singingIdentity.authorizations.getReceived();  
-
+        console.log(this.accountAuthRequest[0]);
+        
         if(this.accountAuthRequest.length==0){
           alert("No Pending Auth Request")
         }
@@ -261,13 +273,13 @@ export class PolymeshService {
     const identity=await this.polyClient.identities.getIdentity({
       did:targetAddress
     })
-    const invitedAgent=await asset.permissions.inviteAgent({
+    const invitedAgentQueue=await asset.permissions.inviteAgent({
       target:identity,
       permissions:{
-        transactions:'inclusive',
-        value:["asset.controllerTransfer"]
-      }
-    })
+        transactionGroups:[TxGroup.CorporateActionsManagement]
+      }})
+
+    await invitedAgentQueue.run();
   }
 
 
@@ -369,15 +381,40 @@ export class PolymeshService {
     this.loader.hideLoading();
   }
 
-  async getAssetAgents(){
+  async createAgentGroup(){
     const asset=await this.getAsset("AKS");
+    const groupcreationQueue=await asset.permissions.createGroup({
+      permissions:[TxGroup.AssetManagement,TxGroup.Issuance]
+     });
+
+    await groupcreationQueue.run();
+  }
+
+  async getAssetDetails(asset:any){
+    this.assetDetails.ticker=asset.ticker;
+    this.assetDetails.did=asset.did;
+    const details=await asset.details();
+    this.assetDetails.type=details.assetType;
+    this.assetDetails.agents=await asset.permissions.getAgents();
+    this.assetDetails.fullAgents=details.fullAgents
+    this.assetDetails.isDivisible=details.isDivisible;
+    this.assetDetails.name=details.name;
+    this.assetDetails.ownerDid=details.owner.did;
+    this.assetDetails.totalSupply=details.totalSupply;
+  }
+
+
+
+  async runTest(){
+    const asset=await this.getAsset("AKSN");
+    console.log(asset);
     
-   console.log(await this.singingIdentity.assetPermissions.checkPermissions({
-    asset:"AKS",
-    transactions:[AssetTx]
-   }));
-   
+    console.log(await asset.details());
     
+    const assetGroups=await asset.permissions.getAgents()
+    const customGroups=assetGroups.custom;
+    const knowGroups=assetGroups.known;
+    console.log(await asset.permissions.getAgents()); 
   }
 
 }
