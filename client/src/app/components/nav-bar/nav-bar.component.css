@@ -1,0 +1,35 @@
+
+
+.action-btn-container{
+    background-color: aquamarine;
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll;
+    padding-left: 4px;
+    padding-right: 5px;
+}
+
+
+.btn{
+    background-color: #7fffd4;
+    border: 0;
+    padding: 8px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    border: 2px solid black;
+}
+
+
+.btn:hover{
+    cursor: pointer;
+    background-color: black;
+    color: aquamarine;
+}
+
+
+
+
+

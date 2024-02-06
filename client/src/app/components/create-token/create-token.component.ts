@@ -42,10 +42,14 @@ export class CreateTokenComponent {
     }
 
     async alertIfTickerAvaiable(ticker:string){
-      if(await this.isTickerAvaiable(ticker)){
-        alert('Ticker Available');
-      }else{
-        alert("Ticker Already Reserved")
+      try {
+        if(await this.isTickerAvaiable(ticker)){
+          alert('Ticker Available');
+        }else{
+          alert("Ticker Already Reserved")
+        }
+      } catch (error) {
+          alert(error) 
       }
     }
 

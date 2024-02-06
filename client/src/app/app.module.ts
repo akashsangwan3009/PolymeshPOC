@@ -12,7 +12,9 @@ import { AuthRequestComponent } from './components/auth-request/auth-request.com
 import { TransferOwnerComponent } from './components/transfer-owner/transfer-owner.component';
 import { TransferRequestsComponent } from './components/transfer-requests/transfer-requests.component';
 import { AllPortfoliosComponent } from './components/all-portfolios/all-portfolios.component';
-import {TokenDetailsComponent} from "./components/token-details/token-details.component"
+import {TokenDetailsComponent} from "./components/token-details/token-details.component";
+import { FlowComponentComponent } from './components/flow-component/flow-component.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component'
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import {TokenDetailsComponent} from "./components/token-details/token-details.co
     TransferRequestsComponent,
     AllPortfoliosComponent,
     TokenDetailsComponent,
+    FlowComponentComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,

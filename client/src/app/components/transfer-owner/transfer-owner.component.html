@@ -48,3 +48,20 @@
     </form>
 </div>
 
+<div *ngIf="polymeshService.enablePopUp.assetSecAgent">
+    <form #assetSecAgent="ngForm" (ngSubmit)="setAssetSecAgent(assetSecAgent.value)">
+        <input placeholder="Enter ticker name ..." ngModel name="tickername"/><br><br>
+        <input placeholder="Enter secondary agent address ..." ngModel name="accountAddress"/><br><br>
+        <button class="btn">Set Asset Secondary Agent</button>
+    </form>
+</div>
+
+
+<div *ngIf="polymeshService.enablePopUp.removeAgent">
+    <form #assetSecAgent="ngForm" (ngSubmit)="removeAssetAgent(assetSecAgent.value)">
+        <input placeholder="Enter ticker name ..." ngModel name="tickername"/><br><br>
+        <input placeholder="Enter agent address ..." ngModel name="accountAddress"/><br><br>
+        <button class="btn">Remove Asset Agent</button>
+    </form>
+</div>
+

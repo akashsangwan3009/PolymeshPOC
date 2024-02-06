@@ -1,31 +1,20 @@
-<h1>{{title}}</h1>
-<h1>Signing Address :  {{signingAddress}}</h1>
-<div class="action-btn-container">
-        <h2>Action Buttons : </h2>
-    <div class="action-btn-wrapper">
-        <button class="btn sto-create" (click)="togglePopUp('sto')">{{stoCreationPop? 'Close STO Creation Form':'Click Here to create your STO'}}</button>
-        <button class="btn get-asset" (click)="togglePopUp('getAsset')">{{getAssetPop? 'Close Get Asset ':'Want to check an asset?'}}</button>
-        <button class="btn get-asset" (click)="togglePopUp('getAllAssets')">Get Your All Assests</button>
-        <button class="btn get-asset" (click)="togglePopUp('getAllAuth')">Get Incoming Auth Requests</button>
-        <button class="btn get-asset" (click)="togglePopUp('getAllTransfer')">Transfer Requests</button>
-        <button class="btn get-asset" (click)="getPublicKey()">Get Your Public Address</button>
-        <button class="btn get-asset" (click)="togglePopUp('transferOwner')">Transfer Ownership</button>
-        <button class="btn get-asset" (click)="togglePopUp('addSecondaryAccount')">Add Secondary Account</button>
-        <button class="btn get-asset" (click)="togglePopUp('assetCompliance')">Set Asset Compliance</button>
-        <button class="btn get-asset" (click)="togglePopUp('assetAgent')">Add Asset Agent</button>
-        <button class="btn get-asset" (click)="togglePopUp('mintAsset')">Mint Asset</button>
-        <button class="btn get-asset" (click)="togglePopUp('assetDistribution')">Asset Distribution</button>
-        <button class="btn get-asset" (click)="togglePopUp('porfolios')">Get Portfolios</button>
-        <button class="btn get-asset" (click)="togglePopUp('')">Test Case</button>
+<div class="homeContainer">
+    <div class="navBarContainer">
+        <app-nav-bar></app-nav-bar>
     </div>
-</div>
+    <div class="detailContainer">
+        <h1>{{title}}</h1>
+        <h1>Signing Address :  {{signingAddress}}</h1>
+        <app-token-details></app-token-details>
+        <app-all-portfolios></app-all-portfolios>
+        <app-transfer-requests></app-transfer-requests>
+        <app-transfer-owner></app-transfer-owner>
+        <app-auth-request></app-auth-request>
+        <app-get-asset></app-get-asset>
+        <app-create-token></app-create-token>
+        <app-all-assets></app-all-assets>
+        <app-loader></app-loader>
+    </div>
+</div>    
 
-<app-token-details></app-token-details>
-<app-all-portfolios></app-all-portfolios>
-<app-transfer-requests></app-transfer-requests>
-<app-transfer-owner></app-transfer-owner>
-<app-auth-request></app-auth-request>
-<app-get-asset></app-get-asset>
-<app-create-token></app-create-token>
-<app-all-assets></app-all-assets>
-<app-loader></app-loader>
+<!-- <app-flow-component></app-flow-component> -->

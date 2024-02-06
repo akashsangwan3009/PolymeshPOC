@@ -1,0 +1,19 @@
+<svg width="400" height="250">
+    <ng-container *ngFor="let node of nodes">
+      <circle
+        [attr.cx]="node.x"
+        [attr.cy]="node.y"
+        r="10"
+        fill="blue"
+      ></circle>
+      <line
+        *ngFor="let child of node.children"
+        [attr.x1]="node.x"
+        [attr.y1]="node.y"
+        [attr.x2]="child.x"
+        [attr.y2]="child.y"
+        style="stroke:black;stroke-width:2"
+      ></line>
+    </ng-container>
+  </svg>
+  

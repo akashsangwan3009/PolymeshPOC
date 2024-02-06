@@ -98,6 +98,35 @@ export class TransferOwnerComponent {
       this.loadService.hideLoading();
     }
   }
+
+  async setAssetSecAgent(data:NgForm){
+    this.setAssetAgentData=data;
+    try {
+      this.loadService.showLoading();
+      await this.polymeshService.setAssetSecondaryAgent(this.setAssetAgentData.tickername,this.setAssetAgentData.accountAddress )
+      alert('Invite Sent Succesfully')
+    } catch (error) {
+      alert(error)
+    }finally{
+      this.loadService.hideLoading();
+    }
+  }
+
+  async removeAssetAgent(data:NgForm){
+    this.setAssetAgentData=data;
+    try {
+      this.loadService.showLoading();
+      await this.polymeshService.removeAssetAgent(this.setAssetAgentData.tickername,this.setAssetAgentData.accountAddress )
+      alert('Invite Sent Succesfully')
+    } catch (error) {
+      alert(error)
+    }finally{
+      this.loadService.hideLoading();
+    }
+  }
+
+  
+
 }
 
 //0xbacb7e59bb46d6cc56bba1008c0a7abdb2da7b2826b81211bc07bda54d494f5e -- Present

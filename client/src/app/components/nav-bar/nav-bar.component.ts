@@ -1,46 +1,17 @@
-import { AfterViewInit, Component } from '@angular/core';
-import {PolymeshService} from "./service/polymesh.service"
-import {LoadingService} from "./service/loading.service"
-import {Buffer} from 'buffer'
+import { Component } from '@angular/core';
+import {PolymeshService} from "../../service/polymesh.service";
+import {LoadingService} from "../../service/loading.service"
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-nav-bar',
+  templateUrl: './nav-bar.component.html',
+  styleUrls: ['./nav-bar.component.css']
 })
+export class NavBarComponent {
 
+  constructor(  private polymeshService: PolymeshService, 
+                private loader:LoadingService){}
 
-export class AppComponent {
-
-  title = 'STO With Polymesh';
-  signingAddress:string='';
-  stoCreationPop:boolean=false;
-  getAssetPop:boolean=false;
-
-  constructor(
-    private polymeshService: PolymeshService, 
-    private loader:LoadingService,
-    ){}
-  
-  ngOnInit():void{
-    global.Buffer = global.Buffer || Buffer;
-    this.stoCreationPop=this.polymeshService.enablePopUp.createToken;
-    this.connectWallet()
-  }
-  
-  async connectWallet(){
-    this.loader.showLoading();
-    await this.polymeshService.connectWallet();
-    await this.ready();
-    this.loader.hideLoading();
-  }
-
-  async ready(){
-    if(this.polymeshService.polyClient){
-      const authObject=await this.polymeshService.polyClient.getSigningIdentity();
-      this.signingAddress=authObject.did;
-    }
-  }
 
   async togglePopUp(type:string){
     switch(type){
@@ -103,10 +74,10 @@ export class AppComponent {
           assetSecAgent:false,
           removeAgent:false,
         };
-       
+        
         if(this.polymeshService.enablePopUp.getAllAssets){
-           this.polymeshService.getAllAssets();
-         }  
+            this.polymeshService.getAllAssets();
+          }  
         break;
 
       case 'getAllAuth':
@@ -366,8 +337,10 @@ export class AppComponent {
     }
   }
 
+
   getPublicKey(){
     this.polymeshService.getPublicKey();
   }
+                            
 
 }

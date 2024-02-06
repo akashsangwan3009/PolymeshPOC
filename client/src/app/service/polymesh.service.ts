@@ -43,6 +43,8 @@ export class PolymeshService {
                 assetDistribution:boolean ,
                 porfolios:boolean,
                 assetDetails:boolean,
+                assetSecAgent:boolean,
+                removeAgent:boolean,
               } = { 
                        createToken:false, 
                        getAsset:false, 
@@ -57,6 +59,8 @@ export class PolymeshService {
                        getTransferRequest:false,
                        porfolios:false,
                        assetDetails:false,
+                       assetSecAgent:false,
+                       removeAgent:false,
                       };
   accountAllAssets:any=[];
 
@@ -69,6 +73,13 @@ export class PolymeshService {
     this.polyClient = await Polymesh.connect({
     nodeUrl: 'wss://testnet-rpc.polymesh.live',
     signingManager,
+    middlewareV2: {
+      link: "https://testnet-graphqlnative.polymath.network/ ",   // Test middleware link , for prod we have we have to run our own instance of SubQuery https://discord.com/channels/824858060526059550/824858060735381517/1175161891090346055
+      key: "",
+    },
+    polkadot: {
+      noInitWarn: true,
+    },
     });
     
     this.singingIdentity=await this.polyClient.getSigningIdentity();
@@ -87,8 +98,10 @@ export class PolymeshService {
         // this.signingAddress=authObject.did;
         // console.log('UserAccount', userAccount,  this.signingAddress);
         // console.log('user Request',  await userAccount.authorizations.getReceived());
-        this.accountAuthRequest= await this.singingIdentity.authorizations.getReceived();  
-        console.log(this.accountAuthRequest[0]);
+        this.accountAuthRequest= await this.singingIdentity.authorizations.getReceived(); 
+        // const permissionObje=this.accountAuthRequest[0].data.value;
+
+        // console.log(await permissionObje.getPermissions());
         
         if(this.accountAuthRequest.length==0){
           alert("No Pending Auth Request")
@@ -282,6 +295,32 @@ export class PolymeshService {
     await invitedAgentQueue.run();
   }
 
+  async removeAssetAgent(tickerName:string, targetAddress:string){
+    const asset=await this.getAsset(tickerName);
+    const identity=await this.polyClient.identities.getIdentity({
+      did:targetAddress
+    })
+    const invitedAgentQueue=await asset.permissions.removeAgent({
+      target:identity,
+     })
+
+    await invitedAgentQueue.run();
+  }
+
+  async setAssetSecondaryAgent(tickerName:string, targetAddress:string){
+    const asset=await this.getAsset(tickerName);
+    const identity=await this.polyClient.identities.getIdentity({
+      did:targetAddress
+    })
+    const invitedAgentQueue=await asset.permissions.inviteAgent({
+      target:identity,
+      permissions:{
+        transactions:null
+      }})
+
+    await invitedAgentQueue.run();
+  }
+
 
   async mintAsset(tickerName:string, amount:string){
     const asset=await this.getAsset(tickerName);
@@ -406,15 +445,11 @@ export class PolymeshService {
 
 
   async runTest(){
-    const asset=await this.getAsset("AKSN");
-    console.log(asset);
+    const account=await this.getAccountDetails(await this.getSigningAddress());
+    console.log(account);
     
-    console.log(await asset.details());
-    
-    const assetGroups=await asset.permissions.getAgents()
-    const customGroups=assetGroups.custom;
-    const knowGroups=assetGroups.known;
-    console.log(await asset.permissions.getAgents()); 
+    console.log(await account.getBalance());
+
   }
 
 }
