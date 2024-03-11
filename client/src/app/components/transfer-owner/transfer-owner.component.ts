@@ -29,7 +29,7 @@ export class TransferOwnerComponent {
         alert(error)
       } finally{
         this.loadService.hideLoading();
-      } 
+      }
   }
 
   async addSecondaryAccount(data:NgForm){
@@ -76,7 +76,7 @@ export class TransferOwnerComponent {
     try {
       this.loadService.showLoading();
       await this.polymeshService.mintAsset(this.mintAssetData.tickername,this.mintAssetData.amount )
-      alert('Compliance Sent Succesfully')
+      alert('Successfull Minted!!');
     } catch (error) {
       alert(error)
     }finally{
@@ -87,11 +87,13 @@ export class TransferOwnerComponent {
   async callAssetDistribution(data:NgForm){
     this.assetDistributionData=data;
     console.log(this.assetDistributionData);
-    
+
     try {
       this.loadService.showLoading();
       await this.polymeshService.distributeAsset(this.assetDistributionData.userDiD,this.assetDistributionData.amount, this.assetDistributionData.tickerName,this.assetDistributionData.portfoliaId )
-      alert('Token distribution request Sent Succesfully')
+      if(this.polymeshService.TickerFlag==true){
+        alert('Token distribution request Sent Succesfully')
+      }
     } catch (error) {
       alert(error)
     }finally{
@@ -125,7 +127,7 @@ export class TransferOwnerComponent {
     }
   }
 
-  
+
 
 }
 

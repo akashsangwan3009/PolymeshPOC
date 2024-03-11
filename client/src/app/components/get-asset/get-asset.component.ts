@@ -23,6 +23,9 @@ export class GetAssetComponent {
           this.loadingService.showLoading();
           const asset=await this.polymeshService.getAsset(this.tickerName);
           await this.polymeshService.getAssetDetails(asset);
+          console.log("This is the asset:");
+
+          console.log(asset);
           this.polymeshService.enablePopUp={
           createToken:false,
           getAsset:false,
@@ -39,12 +42,12 @@ export class GetAssetComponent {
           assetDetails:true,
           assetSecAgent:false,
           removeAgent:false,
-        };   
+        };
         } catch (error) {
            alert(error);
         }finally{
           this.loadingService.hideLoading();
-        }  
+        }
       }
     }
 

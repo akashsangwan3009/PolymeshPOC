@@ -4,9 +4,10 @@
     background-color: aquamarine;
     margin: 0;
     padding: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding-left: 4px;
     padding-right: 5px;
+    height:calc(100vh - 10px);
 }
 
 

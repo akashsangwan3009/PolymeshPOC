@@ -1,13 +1,43 @@
-<div *ngIf="polymeshService.enablePopUp.createToken">
-   <form #createTokenForm="ngForm" (ngSubmit)="createAsset(createTokenForm.value)">
-     <input placeholder="Enter your token ticker" name="ticker" ngModel/>
-     <button type="button" class="btn ticker-check" (click)="alertIfTickerAvaiable(createTokenForm.value.ticker)">Check If ticker Available</button><br><br>
-     <input placeholder="Enter your token name" name="token" ngModel/><br><br>
-     <input placeholder="Enter your asset type" name="assetType" ngModel/><br><br>
-     <label for="divisible">Is Divisible ?</label>
-     <input type="checkbox" name="isDivisible" value="True" ngModel/>True
-     <input type="checkbox" name="isDivisible" value="False" ngModel />False
-     <br>
-     <button class="btn create-token" >Create Token</button>
-   </form>
+<div class="centered-container" *ngIf="polymeshService.enablePopUp.createToken">
+  <form
+    #createTokenForm="ngForm"
+    (ngSubmit)="createAsset(createTokenForm.value)"
+  >
+    <div>
+      <input type="text" placeholder="Enter your token ticker" name="ticker" ngModel />
+      <button
+        type="button"
+        class="btn ticker-check"
+        (click)="alertIfTickerAvaiable(createTokenForm.value.ticker)"
+      >
+        Check If ticker Available
+      </button>
+    </div>
+    <div>
+      <input type="text" placeholder="Enter your token name" name="token" ngModel />
+    </div>
+    <div>
+      <label for="assetType">Select your asset type:</label>
+      <select name="assetType" ngModel>
+        <option value="EquityCommon">Equity Common</option>
+        <option value="EquityPreferred">Equity Preferred</option>
+        <option value="Commodity">Commodity</option>
+        <option value="FixedIncome">Fixed Income</option>
+        <option value="Reit">Reit</option>
+        <option value="Fund">Fund</option>
+        <option value="RevenueShareAgreement">Revenue Share Agreement</option>
+        <option value="StructuredProduct">Structured Product</option>
+        <option value="Derivative">Derivative</option>
+        <option value="StableCoin">Stable Coin</option>
+      </select>
+    </div>
+    <div>
+      <label for="divisible">Is Divisible ?</label>
+      <div>
+        <input type="checkbox" name="isDivisible" value="True" ngModel />True
+        <input type="checkbox" name="isDivisible" value="False" ngModel />False
+      </div>
+    </div>
+    <button class="btn create-token">Create Token</button>
+  </form>
 </div>

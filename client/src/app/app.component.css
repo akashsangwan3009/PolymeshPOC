@@ -1,7 +1,9 @@
 
 *{
-    margin: 0;
-    padding: 0;
+  margin: 0px;
+  padding: 0px;
+  margin-right: 4px;
+  /* background-color: green; */
 }
 
 .homeContainer{
@@ -14,10 +16,21 @@
 .navBarContainer{
     width:10% ;
     height: 100%;
-}    
-
+}
 
 .detailContainer{
     width: 89%;
     height: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.title{
+  margin-left: 448px;
 }

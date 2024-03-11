@@ -3,8 +3,10 @@
         <app-nav-bar></app-nav-bar>
     </div>
     <div class="detailContainer">
-        <h1>{{title}}</h1>
-        <h1>Signing Address :  {{signingAddress}}</h1>
+      <div class="header">
+        <h1 class="title">{{title}}</h1>
+        <h3>OnChain Address: {{signingAddress | slice:0:7}}...{{signingAddress | slice:-4}}</h3>
+      </div>
         <app-token-details></app-token-details>
         <app-all-portfolios></app-all-portfolios>
         <app-transfer-requests></app-transfer-requests>
@@ -15,6 +17,6 @@
         <app-all-assets></app-all-assets>
         <app-loader></app-loader>
     </div>
-</div>    
+</div>
 
 <!-- <app-flow-component></app-flow-component> -->

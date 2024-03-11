@@ -12,13 +12,13 @@ export class CreateTokenComponent {
 
     tokenDetail:any={};
 
-    constructor( 
-          public polymeshService:PolymeshService, 
-          private loader:LoadingService) {} 
+    constructor(
+          public polymeshService:PolymeshService,
+          private loader:LoadingService) {}
 
     async createAsset(data:NgForm){
       this.tokenDetail=data;
-      if(this.tokenDetail.ticker){         
+      if(this.tokenDetail.ticker){
           if(await this.isTickerAvaiable(this.tokenDetail.ticker)){
             this.loader.showLoading();
 
@@ -38,7 +38,7 @@ export class CreateTokenComponent {
             alert("Ticker Already Reserved")
           }
       }
-      
+
     }
 
     async alertIfTickerAvaiable(ticker:string){
@@ -49,15 +49,13 @@ export class CreateTokenComponent {
           alert("Ticker Already Reserved")
         }
       } catch (error) {
-          alert(error) 
+          alert(error)
       }
     }
 
     async isTickerAvaiable(ticker:string):Promise<boolean>{
       return await this.polymeshService.polyClient.assets.isTickerAvailable({
         ticker
-      }) 
+      })
     }
-
-
 }

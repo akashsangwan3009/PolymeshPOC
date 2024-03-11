@@ -12,6 +12,7 @@ export class PolymeshService {
 
   constructor(private loader:LoadingService) {}
 
+  flag:boolean=false;
   polyClient:any;
   signingAddress:any;
   accountAuthRequest:any=[];
@@ -20,19 +21,19 @@ export class PolymeshService {
   tokenTransferFailedRequests:any=[];
   allPortfolios:any[]=[];
   singingIdentity:any;
-  assetDetails:any={ticker:"", 
+  assetDetails:any={ticker:"",
                     did:"",
                     type:"",
                     agents:[],
                     fullAgents:[],
                     isDivisible:"",
                     name:"",
-                    ownerDid:"",
-                    totalSupply:"" };
+                    ownerDid:""
+                 };
 
-  enablePopUp:{ createToken: boolean, 
-                getAsset: boolean, 
-                getAllAssets: boolean, 
+  enablePopUp:{ createToken: boolean,
+                getAsset: boolean,
+                getAllAssets: boolean,
                 getAuthRequest: boolean,
                 getTransferRequest:boolean,
                 transferOwner:boolean,
@@ -45,17 +46,17 @@ export class PolymeshService {
                 assetDetails:boolean,
                 assetSecAgent:boolean,
                 removeAgent:boolean,
-              } = { 
-                       createToken:false, 
-                       getAsset:false, 
-                       getAllAssets:false, 
+              } = {
+                       createToken:false,
+                       getAsset:false,
+                       getAllAssets:false,
                        getAuthRequest:false,
                        transferOwner:false,
                        addSecondaryAccount:false,
                        assetCompliance:false,
                        assetAgent:false,
                        mintAsset:false,
-                       assetDistribution:false,  
+                       assetDistribution:false,
                        getTransferRequest:false,
                        porfolios:false,
                        assetDetails:false,
@@ -63,13 +64,15 @@ export class PolymeshService {
                        removeAgent:false,
                       };
   accountAllAssets:any=[];
+  hasCompliance:any=[];
+  TickerFlag:boolean=false;
 
   async connectWallet(){
     const signingManager = await BrowserExtensionSigningManager.create(
       {
         appName:"STO"
       }
-    ); 
+    );
     this.polyClient = await Polymesh.connect({
     nodeUrl: 'wss://testnet-rpc.polymesh.live',
     signingManager,
@@ -80,9 +83,12 @@ export class PolymeshService {
     polkadot: {
       noInitWarn: true,
     },
+
     });
-    
+
     this.singingIdentity=await this.polyClient.getSigningIdentity();
+    console.log("this is the signing identity: ");
+    console.log(this.singingIdentity.did);
   }
 
   async inviteOwner(pubId:String){
@@ -98,11 +104,11 @@ export class PolymeshService {
         // this.signingAddress=authObject.did;
         // console.log('UserAccount', userAccount,  this.signingAddress);
         // console.log('user Request',  await userAccount.authorizations.getReceived());
-        this.accountAuthRequest= await this.singingIdentity.authorizations.getReceived(); 
+        this.accountAuthRequest= await this.singingIdentity.authorizations.getReceived();
         // const permissionObje=this.accountAuthRequest[0].data.value;
 
         // console.log(await permissionObje.getPermissions());
-        
+
         if(this.accountAuthRequest.length==0){
           alert("No Pending Auth Request")
         }
@@ -115,11 +121,13 @@ export class PolymeshService {
     try {
       this.loader.showLoading();
       const tokenTransferRequests=await this.singingIdentity.getInstructions();
+      console.log("this is the token transfer request:  ");
+      console.log(tokenTransferRequests);
       this.tokenTransferAffirmedRequests=tokenTransferRequests.affirmed;
       this.tokenTransferPendingRequests=tokenTransferRequests.pending;
       this.tokenTransferFailedRequests=tokenTransferRequests.failed;
       console.log(await this.tokenTransferFailedRequests[0]);
-      
+
     } catch (error) {
       alert(error)
     } finally{
@@ -138,7 +146,7 @@ export class PolymeshService {
   };
 
   async getAsset(tickerName:String){
-   
+
       const asset =await this.polyClient.assets.getAsset({
         ticker:tickerName
       })
@@ -147,7 +155,7 @@ export class PolymeshService {
 
   async getAllAssets(){
     try {
-      const assets =await this.polyClient.assets.getAssets()  
+      const assets =await this.polyClient.assets.getAssets()
       this.accountAllAssets= assets;
       if(this.accountAllAssets.length == 0){
         alert("No token for Selected account !!");
@@ -162,21 +170,21 @@ export class PolymeshService {
       const reservationQueue = await this.polyClient.assets.reserveTicker({
         ticker,
       });
-  
+
       const reservation=await reservationQueue.run();
-  
+
       const assetQueue=await reservation.createAsset({
         name,
         assetType,
         isDivisible
       })
-  
+
       const asset =await assetQueue.run();
 
       return asset;
-      
+
     } catch (error) {
-        alert(error); 
+        alert(error);
     }
   };
 
@@ -184,7 +192,7 @@ export class PolymeshService {
   async isTickerAvaiable(ticker:string):Promise<boolean>{
     return await this.polyClient.assets.isTickerAvailable({
       ticker
-    }) 
+    })
   };
 
   async getAccountDetails(signingAddress:any){
@@ -208,7 +216,7 @@ export class PolymeshService {
       const transferQueue = await asset.transferOwnership({
         target: pubKey,
       });
-  
+
       await transferQueue.run();
     }
   }
@@ -278,6 +286,8 @@ export class PolymeshService {
           ],
         });
         const updatedAsset = await setRequirementsQueue.run();
+        this.hasCompliance.push(tickerName);
+        console.log('This is the compliance:', this.hasCompliance);
       }
   }
 
@@ -332,12 +342,14 @@ export class PolymeshService {
   }
 
   async distributeAsset(userAccount:string, amount:string,tickerName:string, portfoliaID:string){
-    
+
     const ownerDefaultPortfolia=await this.singingIdentity.portfolios.getPortfolio();
     const userIdentity = await this.polyClient.identities.getIdentity({
       did: userAccount,
     });
-    
+    console.log("This is the signing identity portfolio: ");
+    console.log(ownerDefaultPortfolia);
+
     let userPortfolio;
 
     if(portfoliaID.length>0){
@@ -347,13 +359,13 @@ export class PolymeshService {
     }else{
       userPortfolio=await userIdentity.portfolios.getPortfolio();
       console.log('Check',userPortfolio);
-      
+
     }
 
     const asset=await this.getAsset(tickerName);
 
     console.log('ownerPortfolio',ownerDefaultPortfolia, 'user', await userIdentity.portfolios.getPortfolio(), 'portfoliaID', portfoliaID, 'lenght', portfoliaID.length);
-    
+
 
     // const canTranferCheck = await asset.settlements.canTransfer({
     //   from: ownerDefaultPortfolia,
@@ -375,13 +387,21 @@ export class PolymeshService {
     //   await moveQueue.run();
     // }
 
+    const tickerExists = this.hasCompliance.includes(tickerName);
 
+    if (!tickerExists) {
+        alert(`The ticker '${tickerName}' does not exist in the compliance list.. Transaction may fail without compliance.`);
+        return;
+    }
+
+    this.TickerFlag=true;
     const distributionVenueQueue = await this.polyClient.settlements.createVenue({
       type: 'Distribution',
       description: 'For ACME Co',
     });
-      
+
     const distributionVenue = await distributionVenueQueue.run();
+
 
     const distributionInstructionQueue = await distributionVenue.addInstruction({
       legs: [
@@ -397,9 +417,11 @@ export class PolymeshService {
     const distributionInstruction = await distributionInstructionQueue.run();
     const distributionInstructionId = distributionInstruction
     const distributionVenueId = distributionVenue.id.toString();
-
     console.log('distributionInstructionId', distributionInstructionId);
     console.log('distributionVenueId', distributionVenueId);
+
+
+
   }
 
   async getVenue(){
@@ -447,7 +469,7 @@ export class PolymeshService {
   async runTest(){
     const account=await this.getAccountDetails(await this.getSigningAddress());
     console.log(account);
-    
+
     console.log(await account.getBalance());
 
   }
